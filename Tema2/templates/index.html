@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Ganadería Paraguay - Lotes Disponibles</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/dashboard">Inicio</a></li>
+            <li><a href="#cattle-lots">Lotes de Ganado</a></li>
+            <li><a href="/contact">Solicitar Información</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Ganadería Paraguay</h1>
+        <p>Lotes de ganado de alta calidad listos para su inversión.</p>
+    </header>
+
+    <div class="container">
+        {% if message %}
+        <div class="message {{ message_type }}">{{ message }}</div>
+        {% endif %}
+    </div>
+
+    <section id="cattle-lots" class="container">
+        <h2>Nuestros Lotes de Ganado</h2>
+        <p style="text-align: center; margin-bottom: 30px; color: #555;">
+            Explore las clasificaciones disponibles. Para precios y detalles de compra, por favor, solicite más información.
+        </p>
+        
+        <div class="lot-grid">
+            {% for lot in lots %}
+            <div class="lot-card">
+                <img src="{{ url_for('static', filename='img/' + lot.image) }}" alt="{{ lot.type }}">
+                <div class="lot-content">
+                    <h3>{{ lot.type }}</h3>
+                    <p>{{ lot.description }}</p>
+                    <p class="lot-quantity">Cantidad en Lote: {{ lot.quantity }} cabezas</p>
+                    <p class="lot-price">Precio Estimado: {{ lot.price }}</p>
+                    <a href="/contact" class="form-container button" style="display: inline-block; margin-top: 10px; text-align: center; background-color: #00796b; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none;">Pedir Más Info</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="contact-form-section">
+        <div class="container">
+            <h2>¿Interesado en un Lote?</h2>
+            <p>Contáctanos para recibir detalles específicos y coordinar una llamada.</p>
+            <a href="/contact" class="form-container button" style="display: inline-block; margin-top: 10px; text-align: center; background-color: #b71c1c; color: white; padding: 15px 30px; border-radius: 4px; text-decoration: none; font-size: 1.1em;">Solicitar Información Ahora</a>
+        </div>
+    </section>
+</body>
+</html>

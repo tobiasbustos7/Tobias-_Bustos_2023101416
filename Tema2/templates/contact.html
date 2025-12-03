@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Información</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/dashboard">Inicio</a></li>
+            <li><a href="/dashboard#cattle-lots">Lotes de Ganado</a></li>
+            <li><a href="/contact">Solicitar Información</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Formulario de Contacto</h1>
+    </header>
+
+    <section id="contact-form-section">
+        <div class="form-container">
+            <h2>Dinos qué tipo de ganado te interesa</h2>
+            <form action="/submit_contact" method="POST">
+                
+                <label for="full_name">Nombre y Apellido</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Tu Nombre Completo" required>
+
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+
+                <label for="phone_number">Celular</label>
+                <input type="tel" id="phone_number" name="phone_number" placeholder="+595 9XX XXX XXX" required>
+
+                <label for="preferred_time">Horario Preferido para Llamar</label>
+                <select id="preferred_time" name="preferred_time" required>
+                    <option value="">Seleccione un horario</option>
+                    <option value="Mañana (8h - 12h)">Mañana (8h - 12h)</option>
+                    <option value="Tarde (13h - 17h)">Tarde (13h - 17h)</option>
+                    <option value="Noche (17h - 20h)">Noche (17h - 20h)</option>
+                </select>
+
+                <label for="cattle_type">Tipo de Ganado Requerido</label>
+                <select id="cattle_type" name="cattle_type" required>
+                    <option value="">Seleccione una clasificación</option>
+                    {% for lot in lots %}
+                    <option value="{{ lot.type }}">{{ lot.type }}</option>
+                    {% endfor %}
+                    <option value="Cualquiera/General">Cualquiera/General</option>
+                </select>
+
+                <button type="submit">Enviar Solicitud</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
